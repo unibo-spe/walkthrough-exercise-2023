@@ -3,11 +3,10 @@ import java.net.URI
 
 plugins {
     `java-gradle-plugin`
-    id("io.gitlab.arturbosch.detekt").version("1.23.1")
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.gitSemVer)
     kotlin("jvm") version "1.9.10"
 }
-
-version = "0.1.0"
 
 repositories {
     mavenCentral()
@@ -30,7 +29,10 @@ java {
 
 gradlePlugin {
     plugins {
-        create("it.unibo.spe.supergreetings")
+        create("") {
+            id = "it.unibo.spe.supergreetings"
+            implementationClass = "it.unibo.spe.greetings.GreetingsPlugin"
+        }
     }
 }
 

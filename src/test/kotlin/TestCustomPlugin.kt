@@ -50,7 +50,7 @@ class TestCustomPlugin : StringSpec({
                 .withArguments("greet")
                 .run()
             println(result.output)
-            result.output shouldNotContain "BUILD SUCCESS"
+            result.output shouldContain "BUILD SUCCESS"
             result.tasks.map { it.outcome }.forEach { it shouldBe TaskOutcome.SUCCESS }
             result.output shouldContain "hello people"
         }
