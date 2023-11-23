@@ -5,8 +5,14 @@ plugins {
     `java-gradle-plugin`
     alias(libs.plugins.detekt)
     alias(libs.plugins.gitSemVer)
+    alias(libs.plugins.plugin.publish)
     kotlin("jvm") version "1.9.10"
+    signing
+    alias(libs.plugins.publish.on.central)
+    alias(libs.plugins.tasktree)
 }
+
+group = "org.danilopianini"
 
 repositories {
     mavenCentral()
@@ -30,8 +36,13 @@ java {
 gradlePlugin {
     plugins {
         create("") {
-            id = "it.unibo.spe.supergreetings"
+            id = "io.github.danysk.spe.supergreetings"
             implementationClass = "it.unibo.spe.greetings.GreetingsPlugin"
+            displayName = "UniBo Software Process Engineering test plugin"
+            description = "made with love just for the sake of learning how to do it"
+            website.set("https://unibo-spe.github.io")
+            vcsUrl.set("git:")
+            tags.set(listOf("unibo", "spe", "greetings"))
         }
     }
 }
@@ -76,6 +87,21 @@ tasks.withType<Test>().configureEach {
     })
 }
 
+publishing {
+    publications {
+        withType<MavenPublication> {
+            pom {
+                developers {
+                    developer {
+                        name.set("Danilo Pianini")
+                        email.set("danilo.pianini@gmail.com")
+                        url.set("http://www.danilopianini.org/")
+                    }
+                }
+            }
+        }
+    }
+}
 
 /*
 plugins {
