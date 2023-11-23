@@ -1,0 +1,18 @@
+name: "A hopefully working pipeline"
+on:
+  - push
+  - pull_request
+
+jobs:
+  print-something:
+    env:
+      JOB_VAR: "job-var"
+    runs-on: ubuntu-22.04
+    steps:
+      - run: echo "I am back with a $JOB_VAR $STEP_VAR"
+        name: This is a print
+        shell: bash
+        env:
+          STEP_VAR: "step-var"
+      - name: Checkout the repo
+        uses: actions/checkout@v4.1.1
