@@ -35,7 +35,7 @@ jobs:
       - name: print the java versions
         id: java-versions
         run: ruby -e 'puts "range=#{[8, 11] + (16..rand(17..21)).to_a}"' >> "$GITHUB_OUTPUT"
-  show-dice:
+  build:
     needs:
       - print-something
     strategy:
@@ -54,3 +54,22 @@ jobs:
           java-version: ${{ matrix.java }}
       - name: print java version
         run: java -version
+      - name: Checkout the repo
+        uses: actions/checkout@v4.1.1
+      - run: ./gradlew build
+  dry-deployment:
+    needs:
+      - build
+    runs-on: ubuntu-22.04
+    steps:
+      - name: configure java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 8
+      - run: |
+          ./gradlew \
+            publishKotlinOSSRHPublicationToMCR\
+            publishPluginMavenPublicationToMavenCentralRepository\
+            close\
+            drop
