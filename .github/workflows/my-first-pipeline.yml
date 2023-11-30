@@ -31,8 +31,11 @@ jobs:
       - name: print the random computed before
         run: |
           echo "I rolled a ${{ steps.dice_step.outputs.dice }}"
-  show-dice-on-windows:
-    runs-on: windows-latest
+  show-dice:
+    strategy:
+        matrix:
+            os: [ windows, macos, ubuntu ]
+    runs-on: ${{ matrix.os }}-latest
     needs:
       - print-something
     steps:
