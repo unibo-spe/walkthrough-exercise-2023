@@ -2,6 +2,7 @@ name: "A hopefully working pipeline"
 on:
   - push
   - pull_request
+  - workflow_dispatch
 
 defaults:
   run:
