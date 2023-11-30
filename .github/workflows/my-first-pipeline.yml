@@ -3,8 +3,14 @@ on:
   - push
   - pull_request
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   print-something:
+    outputs:
+      dice-result: ${{ steps.dice_step.outputs.dice }}
     env:
       JOB_VAR: "job-var"
     runs-on: ubuntu-22.04
@@ -25,3 +31,10 @@ jobs:
       - name: print the random computed before
         run: |
           echo "I rolled a ${{ steps.dice_step.outputs.dice }}"
+  show-dice-on-windows:
+    runs-on: windows-latest
+    needs:
+      - print-something
+    steps:
+      - name: print the dice result
+        run: echo "${{ needs.print-something.outputs.dice-result }}"
