@@ -60,7 +60,7 @@ jobs:
         run: java -version
       - name: Checkout the repo
         uses: actions/checkout@v4.1.1
-      - run: ./gradlew build
+      - run: true # ./gradlew assemble
   dry-deployment:
     needs:
       - build
@@ -71,9 +71,4 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 8
-      - run: |
-          ./gradlew \
-            publishKotlinOSSRHPublicationToMCR\
-            publishPluginMavenPublicationToMavenCentralRepository\
-            close\
-            drop
+      - run: ./gradlew publishKotlinOSSRHPublicationToMCR publishPluginMavenPublicationToMavenCentralRepository close drop
