@@ -42,8 +42,11 @@ jobs:
     strategy:
         fail-fast: false
         matrix:
-            os: [ windows, macos, ubuntu ]
-            java: ${{ fromJson(needs.print-something.outputs.java-versions) }}
+          os: [ windows, macos, ubuntu ]
+          java: ${{ fromJson(needs.print-something.outputs.java-versions) }}
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-build-${{ matrix.os }}-${{ matrix.java }}
+      cancel-in-progress: true
     runs-on: ${{ matrix.os }}-latest
     steps:
       - name: print the dice result
