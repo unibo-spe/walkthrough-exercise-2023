@@ -12,7 +12,16 @@ jobs:
       - run: echo "I am back with a $JOB_VAR $STEP_VAR"
         name: This is a print
         shell: bash
+        if: runner.os != 'Linux'
         env:
           STEP_VAR: "step-var"
       - name: Checkout the repo
         uses: actions/checkout@v4.1.1
+      - name: generate a random number
+        id: dice_step
+        run: |
+          ruby -e 'puts "dice=#{rand(1..6)}"' >> "$GITHUB_OUTPUT"
+          echo ciao
+      - name: print the random computed before
+        run: |
+          echo "I rolled a ${{ steps.dice_step.outputs.dice }}"
