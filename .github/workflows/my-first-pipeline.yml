@@ -11,6 +11,7 @@ jobs:
   print-something:
     outputs:
       dice-result: ${{ steps.dice_step.outputs.dice }}
+      java-versions: ${{ steps.java-versions.outputs.range }}
     env:
       JOB_VAR: "job-var"
     runs-on: ubuntu-22.04
@@ -31,13 +32,24 @@ jobs:
       - name: print the random computed before
         run: |
           echo "I rolled a ${{ steps.dice_step.outputs.dice }}"
+      - name: print the java versions
+        id: java-versions
+        run: ruby -e 'puts "range=#{[8, 11] + (16..rand(17..21)).to_a}"' >> "$GITHUB_OUTPUT"
   show-dice:
+    needs:
+      - print-something
     strategy:
         matrix:
             os: [ windows, macos, ubuntu ]
+            java: ${{ fromJson(needs.print-something.outputs.java-versions) }}
     runs-on: ${{ matrix.os }}-latest
-    needs:
-      - print-something
     steps:
       - name: print the dice result
         run: echo "${{ needs.print-something.outputs.dice-result }}"
+      - name: configure java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+      - name: print java version
+        run: java -version
