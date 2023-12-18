@@ -73,6 +73,12 @@ jobs:
           java-version: 8
       - name: Checkout the repo
         uses: actions/checkout@v4.1.1
+        if: >
+          !github.event.repository.fork
+          && (
+            github.event_name != 'pull_request'
+            || github.event.pull_request.head.repo.full_name == github.repository
+          )
         with:
           fetch-depth: 0
           fetch-tags: true
