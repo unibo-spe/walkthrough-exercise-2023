@@ -103,6 +103,14 @@ publishing {
     }
 }
 
+if (System.getenv("CI") == true.toString()) {
+    signing {
+        val signingKey: String? by project
+        val signingPassword: String? by project
+        useInMemoryPgpKeys(signingKey, signingPassword)
+    }
+}
+
 /*
 plugins {
     id("it.unibo.supergreetings")
