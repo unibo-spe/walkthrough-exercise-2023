@@ -82,7 +82,9 @@ jobs:
         with:
           fetch-depth: 0
           fetch-tags: true
-      - run: ./gradlew -PsigningKey=${{ secrets.SIGNING_KEY }} -PsigningPassword=${{ secrets.SIGNING_PASSWORD }} publishKotlinOSSRHPublicationToMCR publishPluginMavenPublicationToMavenCentralRepository close drop
+      - run: ./gradlew publishKotlinOSSRHPublicationToMCR publishPluginMavenPublicationToMavenCentralRepository close drop
         env:
           MAVEN_CENTRAL_USERNAME: danysk
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
