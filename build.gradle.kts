@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.detekt)
     alias(libs.plugins.gitSemVer)
     alias(libs.plugins.plugin.publish)
-    kotlin("jvm") version "1.9.10"
+    kotlin("jvm") version "1.9.21"
     signing
     alias(libs.plugins.publish.on.central)
     alias(libs.plugins.tasktree)
