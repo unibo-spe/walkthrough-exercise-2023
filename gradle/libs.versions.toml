@@ -13,5 +13,5 @@ kotest = [ "kotest-assertions-core", "kotest-assertions-core-jvm", "kotest-runne
 detekt = "io.gitlab.arturbosch.detekt:1.23.4"
 gitSemVer = "org.danilopianini.git-sensitive-semantic-versioning:2.0.1"
 plugin-publish = "com.gradle.plugin-publish:1.2.1"
-publish-on-central = "org.danilopianini.publish-on-central:5.0.19"
+publish-on-central = "org.danilopianini.publish-on-central:5.0.20"
 tasktree = "com.dorongold.task-tree:2.1.1"
