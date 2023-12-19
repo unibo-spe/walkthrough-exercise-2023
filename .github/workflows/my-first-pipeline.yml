@@ -52,7 +52,7 @@ jobs:
       - name: print the dice result
         run: echo "${{ needs.print-something.outputs.dice-result }}"
       - name: configure java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.java }}
@@ -73,7 +73,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: configure java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 8
